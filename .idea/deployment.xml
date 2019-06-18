@@ -2,6 +2,7 @@
 <project version="4">
   <component name="PublishConfigData">
     <serverData>
+<<<<<<< HEAD
       <paths name="bmm-all63677-all-dev.discovery.c.emag.network">
         <serverdata>
           <mappings>
@@ -10,6 +11,8 @@
         </serverdata>
       </paths>
       <paths name="bmm-all70270-all-dev.discovery.c.emag.network">
+=======
+>>>>>>> 86dac053e5ebb951ee245ff7df846e9448380a3b
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />

@@ -17,14 +17,14 @@ class CargusCourierValidator
         $maxWidth = 0;
         $maxHeight = 0;
 
-        foreach ($delivery->products as $product) {
+        foreach ($delivery->getProducts() as $product) {
             $productValidator->hasValidType($product);
             $productValidator->hasValidWeight($product);
             $productValidator->hasValidDimensions($product);
 
-            $maxLength = max($maxLength, $product->length);
-            $maxWidth = max($maxWidth, $product->width);
-            $maxHeight += $product->height;
+            $maxLength = max($maxLength, $product->getLength());
+            $maxWidth = max($maxWidth, $product->getWidth());
+            $maxHeight += $product->getHeight();
         }
 
         $productValidator->hasValidVolume($maxLength, $maxWidth, $maxHeight);
