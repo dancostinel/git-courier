@@ -2,20 +2,32 @@
 
 namespace CourierBundle\DeliveryValidator;
 
+use CourierBundle\DeliveryValidator\Exception\DeliveryNotSupported;
 use DeliveryBundle\Entity\Delivery;
 
 class FANCourierValidator
 {
-    public function supportsDelivery(Delivery $delivery)
+    /**
+     * @param Delivery $delivery
+     * @param ProductValidator $productValidator
+     * @throws DeliveryNotSupported
+     */
+    public function supportsDelivery(Delivery $delivery, ProductValidator $productValidator)
     {
+        $maxLength = 0;
+        $maxWidth = 0;
+        $maxHeight = 0;
+
         foreach ($delivery->products as $product) {
-            Validator::dry($product);
+            $productValidator->hasValidType($product);
+            $productValidator->hasValidWeight($product);
+            $productValidator->hasValidDimensions($product);
 
-            Validator::maxWeight($product);
-
-            Validator::maxLength($product);
+            $maxLength = max($maxLength, $product->length);
+            $maxWidth = max($maxWidth, $product->width);
+            $maxHeight += $product->height;
         }
 
-        Validator::volume();
+        $productValidator->hasValidVolume($maxLength, $maxWidth, $maxHeight);
     }
 }
